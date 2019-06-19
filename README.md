@@ -1,5 +1,5 @@
 # Basketball Team Stats Tool
-Project that reads, processes, and displays fictional Basketball team stats to user based on menu selections. This project focuses on the use of certain Python features such as:
+Project that reads, processes, and displays fictional basketball team stats to user based on menu selections. This project focuses on the use of certain Python features such as:
 
 1. Use of Dunder Main call 
 2. Reading constants data from another py file
