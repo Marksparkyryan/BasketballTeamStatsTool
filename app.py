@@ -5,12 +5,11 @@ from constants import TEAMS, PLAYERS
 #debug logging to app.log
 logging.basicConfig(filename="app.log", level=logging.DEBUG)
 
+os.system
 
 def start_app():
     """Initaites the game logic and some variables.
     """
-    
-    teams = [{team:list()} for team in TEAMS]
     
     def clean_player(**player):
         """Takes each player dictionary in list of player dictionaries 
@@ -34,6 +33,11 @@ def start_app():
             """
 
             guardians = guardians.split(" and ")
+            height = int(height[:3])
+            if experience == "YES":
+                experience = True
+            else:
+                experience = False
             clean_player = player_packer(name=name, 
                           guardians=guardians, 
                           experience=experience,
@@ -46,14 +50,14 @@ def start_app():
 
     def balance_players():
         """Split all players into lists of experienced and 
-        non-experienced players. Then, distribute experienced and 
-        non-experienced players evenly among available teams.
+        inexperienced players. Then, distribute experienced and 
+        inexperienced players evenly among available teams.
         """
         
         experienced_players = []
         non_experienced_players = []
         for player in cleaned_players:
-            if player["experience"] == "YES":
+            if player["experience"]:
                 experienced_players.append(player)
             else:
                 non_experienced_players.append(player)
@@ -141,7 +145,7 @@ def start_app():
         """
 
         main_choices = [1, 2]
-        team_choices = [TEAMS.index(team)+1 for team in TEAMS]
+        team_choices = [teams.index(team)+1 for team in teams]#
         team_choices.append(len(team_choices)+1)
         
         if menu == "main":
@@ -202,12 +206,12 @@ def start_app():
         number_players = len(teams[int(choice)-1][key])
 
         for player in teams[int(choice)-1][key]:    
-            if player["experience"] == "NO":
+            if player["experience"]:
                 inexperienced_players += 1
             else:
                 experienced_players += 1
-            players_heights += int(player["height"][:3])
-            player_height = int(player["height"][:3])
+            players_heights += player["height"]
+            player_height = player["height"]
             if player_height > max_height:
                 max_height = player_height
             if player_height < min_height:
@@ -223,7 +227,7 @@ def start_app():
             an approriate unit of information. 
             """
 
-            bar = "" + ("⬜ " * multiple) + ""
+            bar = "" + ("░" * multiple) + ""
             return bar 
         
         #debug logging line for team dicts
@@ -232,8 +236,7 @@ def start_app():
         menu_display("greeting")
         
         print("\n")
-        print("▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁"
-        "▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁")
+        print("▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁")
         print("Team Stats")  
         print("\n")  
         print("Team Name:", team_name)
@@ -259,9 +262,10 @@ def start_app():
         for guardian in all_guardians:
             print(guardian, end=", ")
         print("\n")
-        print("▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁"
-        "▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁")
+        print("▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁")
 
+
+    teams = [{team:list()} for team in TEAMS]
     cleaned_players = [clean_player(**player) for player in PLAYERS]
     balance_players()
 
