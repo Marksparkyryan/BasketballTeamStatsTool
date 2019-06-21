@@ -1,11 +1,5 @@
-import logging
 import os
 from constants import TEAMS, PLAYERS
-
-#debug logging to app.log
-logging.basicConfig(filename="app.log", level=logging.DEBUG)
-
-os.system
 
 def start_app():
     """Initaites the game logic and some variables.
@@ -230,8 +224,6 @@ def start_app():
             bar = "" + ("░" * multiple) + ""
             return bar 
         
-        #debug logging line for team dicts
-        logging.debug("team items: {}".format(teams[int(choice)-1]))
         
         menu_display("greeting")
         
